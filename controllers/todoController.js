@@ -38,7 +38,6 @@ async function createTodo(req, res) {
 
         const todo = {
             title,
-            description,
             done
         }
 
@@ -46,6 +45,37 @@ async function createTodo(req, res) {
 
         res.writeHead(201, { "Content-Type": "application/json" })
         return res.end(JSON.stringify(newTodo))
+
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+        return;
+    }
+}
+
+async function updatePartialTodo(req, res, id) {
+    try {
+        const todo = await Todo.findById(id) 
+
+        if(!todo) {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ message: "Todo not found"}));
+        } else {
+            const body = await getPostData(req)
+
+            const { title, description } = JSON.parse(body)
+    
+            const todoData = {
+                title: title || todo.title,
+                done: false
+            }
+    
+            const updatedPartialTodo = await Todo.update(id, todoData)
+    
+            res.writeHead(200, { "Content-Type": "application/json" })
+            return res.end(JSON.stringify(updatedPartialTodo))
+    
+        }
 
     } catch (error) {
         console.log(error)
@@ -65,8 +95,7 @@ async function updateTodo(req, res, id) {
             const { title, description } = JSON.parse(body)
     
             const todoData = {
-                title: title || todo.title,
-                description: description || todo.description,
+                title: title,
                 done: false
             }
     
@@ -103,6 +132,7 @@ module.exports = {
     getTodos,
     getTodo,
     createTodo,
+    updatePartialTodo,
     updateTodo,
     deleteTodo
 }
