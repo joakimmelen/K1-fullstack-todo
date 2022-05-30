@@ -7,7 +7,7 @@ async function getTodos(req, res) {
         const todos = await Todo.findAll()
 
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(todos));
+        return res.end(JSON.stringify(todos));
 
     } catch (error) {
         console.log(error)
@@ -20,10 +20,10 @@ async function getTodo(req, res, id) {
 
         if(!todo) {
             res.writeHead(404, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: "Todo not found"}));
+            return res.end(JSON.stringify({ message: "Todo not found"}));
         } else {
             res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify(todo));
+            return res.end(JSON.stringify(todo));
         }
     } catch (error) {
         console.log(error)
@@ -34,11 +34,11 @@ async function createTodo(req, res) {
     try {
         const body = await getPostData(req)
 
-        const { title, description, done } = JSON.parse(body)
+        const { title } = JSON.parse(body)
 
         const todo = {
             title,
-            done
+            done: false
         }
 
         const newTodo = await Todo.create(todo)
@@ -59,7 +59,7 @@ async function updatePartialTodo(req, res, id) {
 
         if(!todo) {
             res.writeHead(404, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: "Todo not found"}));
+            return res.end(JSON.stringify({ message: "Todo not found"}));
         } else {
             const body = await getPostData(req)
 
@@ -88,7 +88,7 @@ async function updateTodo(req, res, id) {
 
         if(!todo) {
             res.writeHead(404, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: "Todo not found"}));
+            return res.end(JSON.stringify({ message: "Todo not found"}));
         } else {
             const body = await getPostData(req)
 
@@ -117,11 +117,11 @@ async function deleteTodo(req, res, id) {
 
         if(!todo) {
             res.writeHead(404, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: "Todo not found"}));
+            return res.end(JSON.stringify({ message: "Todo not found"}));
         } else {
             await Todo.remove(id)
             res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: `Todo ${id} removed` }));
+            return res.end(JSON.stringify({ message: `Todo ${id} removed` }));
         }
     } catch (error) {
         console.log(error)

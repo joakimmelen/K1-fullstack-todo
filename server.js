@@ -12,7 +12,7 @@ const server = http.createServer((req, res) => {
   
     if (req.method === "OPTIONS") {
       res.statusCode = 200;
-      res.end();
+      return res.end();
     }
 
     if (req.url === "/api/todos" && req.method === "GET") {
@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
         deleteTodo(req, res, id)
 } else {
         res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ message: "Route not found" }));
+        return res.end(JSON.stringify({ message: "Route not found" }));
     }
 })
 
