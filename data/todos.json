@@ -1,27 +1,12 @@
 [
   {
-    "title": "hej",
-    "done": false,
-    "id": "16535902984005"
+    "id": "16539813948617",
+    "title": "please, godkänt!",
+    "done": false
   },
   {
-    "title": "hejdå",
-    "done": false,
-    "id": "16535903044844"
-  },
-  {
-    "title": "Fixa tänderna",
-    "done": false,
-    "id": "16539158277326"
-  },
-  {
-    "title": "asd12314154",
-    "done": false,
-    "id": "16539162537123"
-  },
-  {
-    "title": "asdxxxx",
-    "done": false,
-    "id": "16539183482937"
+    "id": "16539814132259",
+    "title": "I offer beers (see done status)",
+    "done": true
   }
 ]

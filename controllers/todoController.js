@@ -63,11 +63,11 @@ async function updatePartialTodo(req, res, id) {
         } else {
             const body = await getPostData(req)
 
-            const { title, description } = JSON.parse(body)
+            const { title, done } = JSON.parse(body)
     
             const todoData = {
                 title: title || todo.title,
-                done: false
+                done: true
             }
     
             const updatedPartialTodo = await Todo.update(id, todoData)
@@ -92,7 +92,7 @@ async function updateTodo(req, res, id) {
         } else {
             const body = await getPostData(req)
 
-            const { title, description } = JSON.parse(body)
+            const { title } = JSON.parse(body)
     
             const todoData = {
                 title: title,
